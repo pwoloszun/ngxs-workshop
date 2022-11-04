@@ -13,9 +13,6 @@ export class GlobalCounterComponent implements OnInit {
   @Select(GlobalCounterState.counterValue)
   counterValue$!: Observable<number>;
 
-  @Select(GlobalCounterState.updatedAt)
-  updatedAt$!: Observable<number | null>;
-
   @Select(GlobalCounterState.formattedUpdatedAt)
   formattedUpdatedAt$!: Observable<string>;
 

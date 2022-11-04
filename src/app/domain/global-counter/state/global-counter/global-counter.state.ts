@@ -28,7 +28,7 @@ export class GlobalCounterState {
   }
 
   @Selector()
-  static updatedAt(state: IGlobalCounterStateModel) {
+  private static updatedAt(state: IGlobalCounterStateModel) {
     return state.updatedAt;
   }
 
@@ -37,7 +37,6 @@ export class GlobalCounterState {
     state: IGlobalCounterStateModel,
     updatedAt: number | null
   ) {
-    // const updatedAt = state.updatedAt;
     if (updatedAt === null) {
       return '';
     } else {
