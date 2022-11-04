@@ -13,6 +13,7 @@ import { getVideoUrl } from '@infrastructure/app-urls';
 
 import * as actions from './featured-videos.actions';
 import { FeaturedVideosStateModel, VideoEntity } from './featured-videos.types';
+import { interval, tap } from 'rxjs';
 
 const defaults: FeaturedVideosStateModel = {
   isLoading: false,
@@ -31,18 +32,50 @@ export class FeaturedVideosState {
 
   // TODO: currentVideoId selector
   // TODO: videos selector
+  @Selector()
+  static videos(state: FeaturedVideosStateModel): VideoDto[] {
+    return state.videos;
+  }
+
+  @Selector()
+  static isLoading(state: FeaturedVideosStateModel): boolean {
+    return state.isLoading;
+  }
   // TODO: currentVideo selector
   // TODO: videosWithLink selector
   // TODO: isLoading selector
 
   // TODO listen to: actions.FetchVideosRequest
-  fetchFeaturedVideosRequest(ctx: FeaturedVideosCtx, action: actions.FetchVideosRequest) {
+  @Action(actions.FetchVideosRequest)
+  fetchFeaturedVideosRequest(ctx: FeaturedVideosCtx) {
+    const state = ctx.getState();
+    const nextState = produce(state, (draft) => {
+      draft.isLoading = true;
+    });
+    ctx.setState(nextState);
+
+    this.videoApi.getAll().pipe(
+      tap((d) => console.log('RESP:', d))
+    ).subscribe((videos) => {
+      const action = new actions.FetchVideosSuccess({ videos });
+      this.store.dispatch(action);
+    });
     // TODO
+    // interval(1000).subscribe(() => {
+    //   console.log('LEAK:',);
+    // });
   }
 
   // TODO listen to: actions.FetchVideosSuccess
+  @Action(actions.FetchVideosSuccess)
   fetchFeaturedVideosSuccess(ctx: FeaturedVideosCtx, action: actions.FetchVideosSuccess) {
-    // TODO
+    const { videos } = action.payload;
+    const state = ctx.getState();
+    const nextState = produce(state, (draft) => {
+      draft.isLoading = false;
+      draft.videos = videos;
+    });
+    ctx.setState(nextState);
   }
 
   // TODO listen to: actions.ChooseVideo
@@ -56,5 +89,3 @@ export class FeaturedVideosState {
   ) { }
 
 }
-
-

@@ -11,16 +11,19 @@ import { BgActiveVideoState, VideoWithTime } from '../../state/bg-active-video';
 })
 export class UserFeaturedVideosComponent implements OnInit {
 
-  // TODO
-  featuredVideos$: Observable<VideoWithTime[]> = of([]);
+  @Select(FeaturedVideosState.videos)
+  featuredVideos$!: Observable<VideoWithTime[]>;
 
-  // TODO
-  isLoading$: Observable<boolean> = of(true);
+  @Select(FeaturedVideosState.isLoading)
+  isLoading$!: Observable<boolean>;
 
   constructor(private store: Store) { }
 
+
+
   ngOnInit(): void {
-    // TODO: event
+    const action = new actions.FetchVideosRequest();
+    this.store.dispatch(action);
   }
 
   trackByVideoChange(index: number, video: VideoWithTime) {
