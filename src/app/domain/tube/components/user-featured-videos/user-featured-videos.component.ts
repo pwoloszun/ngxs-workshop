@@ -19,8 +19,6 @@ export class UserFeaturedVideosComponent implements OnInit {
 
   constructor(private store: Store) { }
 
-
-
   ngOnInit(): void {
     const action = new actions.FetchVideosRequest();
     this.store.dispatch(action);
