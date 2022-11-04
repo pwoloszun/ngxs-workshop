@@ -27,16 +27,23 @@ export class GlobalCounterState {
     return state.value;
   }
 
+  @Selector()
+  static updatedAt(state: IGlobalCounterStateModel) {
+    return state.updatedAt;
+  }
+
   @Action(IncrementGlobalCounter)
-  increment(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
+  incrementFlow(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
     const state = ctx.getState();
-    const { incrementBy } = action.payload;
+    const { incrementBy, timestamp } = action.payload;
     const nextState = produce(state, (draft) => {
       draft.value = state.value + incrementBy;
+      draft.updatedAt = timestamp;
     });
     ctx.setState(nextState);
 
     // side effect
   }
+
 
 }

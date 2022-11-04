@@ -10,6 +10,11 @@
   <mat-divider inset></mat-divider>
 
   <mat-card-actions>
+    <div>
+      Last Update: {{ updatedAt$ | async }}
+    </div>
+
+
     <button (click)="incrementHandler()"
             mat-raised-button
             color="primary">

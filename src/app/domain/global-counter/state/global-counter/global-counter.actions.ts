@@ -1,5 +1,6 @@
 interface IncrementGlobalCounterPayload {
   incrementBy: number;
+  timestamp: number;
 }
 
 export class IncrementGlobalCounter {

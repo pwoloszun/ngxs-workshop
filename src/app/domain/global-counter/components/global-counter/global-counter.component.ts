@@ -13,11 +13,15 @@ export class GlobalCounterComponent implements OnInit {
   @Select(GlobalCounterState.counterValue)
   counterValue$!: Observable<number>;
 
+  @Select(GlobalCounterState.updatedAt)
+  updatedAt$!: Observable<number>;
+
   constructor(private store: Store) { }
 
   incrementHandler() {
     const action = new actions.IncrementGlobalCounter({
-      incrementBy: 2
+      incrementBy: 2,
+      timestamp: Date.now(),
     });
     this.store.dispatch(action);
   }
