@@ -14,6 +14,10 @@
       Last Update: {{ updatedAt$ | async }}
     </div>
 
+    <div>
+      Formatted Update: {{ formattedUpdatedAt$ | async }}
+    </div>
+
 
     <button (click)="incrementHandler()"
             mat-raised-button

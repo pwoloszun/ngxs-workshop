@@ -32,6 +32,19 @@ export class GlobalCounterState {
     return state.updatedAt;
   }
 
+  @Selector([GlobalCounterState.updatedAt])
+  static formattedUpdatedAt(
+    state: IGlobalCounterStateModel,
+    updatedAt: number | null
+  ) {
+    // const updatedAt = state.updatedAt;
+    if (updatedAt === null) {
+      return '';
+    } else {
+      return new Date(updatedAt).toISOString();
+    }
+  }
+
   @Action(IncrementGlobalCounter)
   incrementFlow(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
     const state = ctx.getState();
@@ -45,5 +58,18 @@ export class GlobalCounterState {
     // side effect
   }
 
+  @Action(IncrementGlobalCounter)
+  ggHhh(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
+    console.log('API CALL:',);
+
+    // side effect
+  }
+
+  @Action(IncrementGlobalCounter)
+  uuuIii(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
+    console.log('OTHER SIDE EFFCT OR next STATE calculation',);
+
+    // side effect
+  }
 
 }

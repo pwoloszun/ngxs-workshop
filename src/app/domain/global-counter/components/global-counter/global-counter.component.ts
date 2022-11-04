@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 import { actions, GlobalCounterState } from '../../state/global-counter';
 
@@ -14,7 +14,10 @@ export class GlobalCounterComponent implements OnInit {
   counterValue$!: Observable<number>;
 
   @Select(GlobalCounterState.updatedAt)
-  updatedAt$!: Observable<number>;
+  updatedAt$!: Observable<number | null>;
+
+  @Select(GlobalCounterState.formattedUpdatedAt)
+  formattedUpdatedAt$!: Observable<string>;
 
   constructor(private store: Store) { }
 
@@ -23,6 +26,7 @@ export class GlobalCounterComponent implements OnInit {
       incrementBy: 2,
       timestamp: Date.now(),
     });
+
     this.store.dispatch(action);
   }
 
