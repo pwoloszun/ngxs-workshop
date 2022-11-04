@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { actions, GlobalCounterState } from '../../state/global-counter';
 
@@ -10,12 +10,16 @@ import { actions, GlobalCounterState } from '../../state/global-counter';
 })
 export class GlobalCounterComponent implements OnInit {
 
-  @Select(GlobalCounterState.counterValue) counterValue$!: Observable<number>;
+  @Select(GlobalCounterState.counterValue)
+  counterValue$!: Observable<number>;
 
   constructor(private store: Store) { }
 
   incrementHandler() {
-    this.store.dispatch(new actions.IncrementGlobalCounter(5));
+    const action = new actions.IncrementGlobalCounter({
+      incrementBy: 2
+    });
+    this.store.dispatch(action);
   }
 
   ngOnInit(): void {

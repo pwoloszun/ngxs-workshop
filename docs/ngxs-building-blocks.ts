@@ -1,7 +1,7 @@
 interface Action { // events
   type: string;
   // [key: string]: any;
-  payload: any;
+  payload?: any;
 }
 
 const action2: Action = {
@@ -38,11 +38,13 @@ const state = {
   // admin: {},
 
 
-  counter: { // state slice
+
+  gggHhh: { // state slice
     value: 997,
   },
 
   users: { // users state slice
+
     entities: [],
     count: 123
   },
@@ -68,13 +70,20 @@ store.dispatch(action);
 // action listeners(s)
 
 // action listener: UserActionListener
-function updateUsersFlow(stateSlice: any, action: any) {
-  const nextState = { ...state };
+function updateUsersFlow(ctx: any, action: any) {
+  const state = ctx.getState();
+  const nextState = {
+    ...state,
+    entities: [...state, 123]
+
+  };
   return nextState;
 }
 
 // action listener: CounterActionListener
-function incrementCounterWhenUserFetchFlow(stateSlice: any, action: any) {
+function incrementCounterWhenUserFetchFlow(ctx: any, action: any) {
+  const state = ctx.getState();
+  value: state.value + 1
   const nextState = {};
   return nextState;
 }

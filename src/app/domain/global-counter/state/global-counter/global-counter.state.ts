@@ -30,13 +30,13 @@ export class GlobalCounterState {
   @Action(IncrementGlobalCounter)
   increment(ctx: StateContext<IGlobalCounterStateModel>, action: IncrementGlobalCounter) {
     const state = ctx.getState();
-    const { incBy } = action;
+    const { incrementBy } = action.payload;
     const nextState = produce(state, (draft) => {
-      draft.value = state.value + incBy;
+      draft.value = state.value + incrementBy;
     });
     ctx.setState(nextState);
+
+    // side effect
   }
-
-
 
 }
