@@ -4,6 +4,9 @@ import produce from 'immer';
 
 import { IncrementGlobalCounter } from './global-counter.actions';
 
+
+`==== 11:30 =====`
+
 interface IGlobalCounterStateModel {
   value: number;
   updatedAt: number | null;
@@ -18,6 +21,7 @@ const defaults: IGlobalCounterStateModel = {
 @State<IGlobalCounterStateModel>({
   name,
   defaults,
+
 })
 @Injectable()
 export class GlobalCounterState {
@@ -42,6 +46,24 @@ export class GlobalCounterState {
     } else {
       return new Date(updatedAt).toISOString();
     }
+  }
+
+  @Selector([GlobalCounterState.updatedAt])
+  static calculateFormattedUpdatedAt(
+    state: IGlobalCounterStateModel,
+    updatedAt: number | null
+  ) {
+    return (format: string) => {
+      if (updatedAt === null) {
+        return '';
+      } else {
+        if (format === 'pl') {
+          return `===PL=== ${new Date(updatedAt).toUTCString()}`;
+        } else {
+          return new Date(updatedAt).toISOString();
+        }
+      }
+    };
   }
 
   @Action(IncrementGlobalCounter)

@@ -16,6 +16,13 @@ export class GlobalCounterComponent implements OnInit {
   @Select(GlobalCounterState.formattedUpdatedAt)
   formattedUpdatedAt$!: Observable<string>;
 
+  @Select(GlobalCounterState.calculateFormattedUpdatedAt)
+  private calculateFormattedUpdatedAt$!: Observable<(format: string) => string>;
+
+  localFormDate$ = this.calculateFormattedUpdatedAt$.pipe(
+    map((calculateFormDateFn) => calculateFormDateFn('pl'))
+  );
+
   constructor(private store: Store) { }
 
   incrementHandler() {
