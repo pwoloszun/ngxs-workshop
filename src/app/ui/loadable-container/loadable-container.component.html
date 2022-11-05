@@ -10,14 +10,14 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="allStatuses.render">
-    <app-stream-container [stream]="data$">
-      <ng-template let-data>
-        <ng-container [ngTemplateOutlet]="renderDataTemplate"
-                      [ngTemplateOutletContext]="{data: data, $implicit: data}"></ng-container>
-      </ng-template>
-    </app-stream-container>
+    <ng-container *ngrxLet="data$ as data; suspenseTpl: loadingTmpl">
+      <ng-container [ngTemplateOutlet]="renderDataTemplate"
+                    [ngTemplateOutletContext]="{data: data, $implicit: data}"></ng-container>
+    </ng-container>
   </ng-container>
 
-  <ng-container *ngSwitchDefault></ng-container>
-
 </ng-container>
+
+<ng-template #loadingTmpl>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

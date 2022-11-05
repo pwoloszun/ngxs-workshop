@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LetModule } from '@ngrx/component';
 
 import { AlertPanelModule } from '@ui/alert-panel';
 import { LoadingIndicatorModule } from '@ui/loading-indicator';
-import { StreamContainerModule } from '@ui/stream-container';
 
 import { LoadableContainerComponent } from './loadable-container.component';
 
@@ -16,10 +16,10 @@ import { LoadableContainerComponent } from './loadable-container.component';
   ],
   imports: [
     CommonModule,
+    LetModule,
     // ui
     AlertPanelModule,
     LoadingIndicatorModule,
-    StreamContainerModule,
   ]
 })
 export class LoadableContainerModule { }
