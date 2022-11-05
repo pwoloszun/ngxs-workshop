@@ -1,11 +1,14 @@
 // import 'zone.js/testing';
 import 'jest-preset-angular/setup-jest';
 import '@testing-library/jest-dom';
+import { configure } from '@testing-library/dom';
 
-beforeEach(() => {
-  jest.useFakeTimers();
-});
+// cutom setup
+import 'src/test-utils/setup';
 
-afterEach(() => {
-  jest.useRealTimers();
+const TEST_TIMEOUT = 5_000;
+
+jest.setTimeout(TEST_TIMEOUT);
+configure({
+  asyncUtilTimeout: TEST_TIMEOUT,
 });

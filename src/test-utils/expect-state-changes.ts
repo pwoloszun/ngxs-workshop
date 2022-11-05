@@ -20,8 +20,11 @@ export function expectStateChanges<T>(
       }
       const expectedState = expectedStateSnapshots[i];
       expect(actualState).toEqual(expectedState);
+      // console.log('[NEXT] expectStateChanges:', i);
+
       if (i >= expectedStateSnapshots.length - 1) {
         sub.unsubscribe();
+        console.log('[DONE] expectStateChanges:');
         done();
       }
       i += 1;
