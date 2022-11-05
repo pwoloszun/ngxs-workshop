@@ -14,7 +14,7 @@ describe('GlobalCounterComponent', () => {
 
     await screen.findByText(/Value: 200/i);
 
-    const incrementBtn = await screen.findByRole('button', { name: /Increment/i });
+    const incrementBtn = await screen.findByRole('button', { name: /Increment/i, hidden: true });
     userEvent.click(incrementBtn);
 
     await screen.findByText(/Value: 205$/i);
